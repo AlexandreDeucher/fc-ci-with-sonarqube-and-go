@@ -13,6 +13,13 @@ jobs:
           go-version: 1.22.2
       - run: go test ./... -coverprofile=../coverage.out
         working-directory: go
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # Distribuição recomendada e amplamente suportada
+          java-version: '21'
+          
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
         env:
