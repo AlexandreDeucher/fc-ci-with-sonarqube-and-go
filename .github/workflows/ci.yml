@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: 1.15
-      - run: go test -coverprofile=coverage.out
+      - run: go test -C go ./... -coverprofile=coverage.out
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
         env:
