@@ -1,0 +1,23 @@
+name: ci-sonarcloud
+on:
+  pull_request:
+    branches: ["develop"]
+
+jobs:
+  check-application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.22.2
+      - run: go test ./... -coverprofile=../coverage.out
+        working-directory: go
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@383f7e52eae3ab0510c3cb0e7d9d150bbaeab838
+        with:
+          projectBaseDir: go
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
